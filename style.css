@@ -1,0 +1,113 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-align: center;
+  color: #eeebeb;
+  background-color: #d1d0d0;
+  background-image: url(./wickedbackground.png);
+  margin: 30px;
+}
+button{
+  background-color: rgb(33, 44, 145);
+  padding: 7px;
+  border-radius: 7px;
+  margin: 3px;
+  color: rgb(255, 253, 253);
+}
+video {
+  width: 90%;
+  border-radius: 4px;
+  height: 70vh;
+  margin: 0rem;
+  background: #ffffff;
+}
+.video-label{
+  position: relative;
+  text-align: center;
+  padding: 0rem 2rem ;
+}
+input{
+padding: 6px 7px 6px 7px;
+border-radius: 4px;
+
+}
+
+.videos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+main{
+  display: grid;
+  grid-template-areas:
+         "topbar topbar  topbar"
+         "content content content"
+         "footer footer  footer";
+  /* grid-template-columns: ; */
+  /*for making the columns 1 fraction ,3fractions and 1 fractions of the total width respectively*/
+  grid-template-rows: 50px auto auto;
+  /* for setting the height of the rows to 50px ,auto and 70px respectively */
+  /* gap:0 50px; */
+  /* 0px gap between the rows and 50px gap between the columns */
+  align-items:center;
+  justify-items:center;
+  /* to justify items and center them*/
+}
+
+
+header  { grid-area: topbar;}
+article { grid-area: content; padding: 1rem; border-radius: 12px; background-color: rgba(0, 0, 0, 0.726);}
+footer {
+    grid-area: footer;
+    text-align: left;
+    width: 90%;
+
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; 
+  padding: 2rem;
+  color: black;
+  border: 1px solid rgb(133, 125, 125);
+  border-radius: 5px;
+  width: 50%; 
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#myBtn{
+  background-color: rgb(5, 5, 5);
+  width: 3em;
+  font-size: 12px ;
+  position: relative;
+  top: 1rem;
+  left: 1rem;
+}

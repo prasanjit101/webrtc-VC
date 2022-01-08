@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WebRTC Demo</title>
+  </head>
+  <body>
+    <main>
+      <header>
+          
+        <h2>Your Webcam 📷</h2>
+      </header>
+      <article class="videos">
+        <button id="myBtn" >☰</button>
+
+          <!-- The Modal -->
+          <div id="myModal" class="modal">
+            <div class="modal-content">
+              <span class="close">&times;</span>
+              <div>
+                <h2>Create a new Call</h2>
+              <button id="callButton" disabled>Create Call (offer)</button>
+              </div>
+      
+             <div>
+              <h2>Join Call</h2>
+              <p>Answer the call from a different browser window or device</p>
+              
+              <input id="callInput" />
+              <button id="answerButton" disabled>Answer</button>
+             </div>
+            </div>
+          </div>
+        <span>
+          <video style="height: 9rem;width: 14rem;" id="webcamVideo" autoplay playsinline></video>
+          <br>
+          <p class="video-label">You</p>
+          <button id="webcamButton">Start webcam</button>
+          <button id="hangupButton" disabled>Hangup</button>
+
+        </span>
+        <span>
+          <video id="remoteVideo" autoplay playsinline></video>
+          <p class="video-label">Remote </p>
+        </span>
+      </article>
+
+      <footer>
+        
+      </footer>
+    </main>
+
+    <script type="module" src="/main.js"></script>
+    <script>
+      var modal = document.getElementById("myModal");
+      var btn = document.getElementById("myBtn");
+      var span = document.getElementsByClassName("close")[0];
+
+      btn.onclick = function() {
+        modal.style.display = "block";
+      }
+
+      span.onclick = function() {
+        modal.style.display = "none";
+      }
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
+    </script>
+
+  </body>
+</html>
