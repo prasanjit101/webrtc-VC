@@ -4,12 +4,14 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 
 const firebaseConfig = {
-  // your config
+  //put  your firebase configurations here
 };
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
+
+//using firestore
 const firestore = firebase.firestore();
 
 const servers = {
@@ -23,8 +25,8 @@ const servers = {
 
 // Global State
 const peer_connection = new RTCPeerConnection(servers); //manages peer to peer connection
-let localStream = null;
-let remoteStream = null;
+let outgoingStream = null; //local stream variable
+let incomingStream = null; // remote  stream variable
 
 // HTML elements
 const webcamButton = document.getElementById('webcamButton');
@@ -33,35 +35,34 @@ const callButton = document.getElementById('callButton');
 const callInput = document.getElementById('callInput');
 const answerButton = document.getElementById('answerButton');
 const remoteVideo = document.getElementById('remoteVideo');
-const hangupButton = document.getElementById('hangupButton');
+const hangup = document.getElementById('hangupButton');
 
-// 1. Setup media sources
-
+// Setup media sources
 webcamButton.onclick = async () => {
-  localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-  remoteStream = new MediaStream();
+  outgoingStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+  incomingStream = new MediaStream();
 
   // Push tracks from local stream to peer connection
-  localStream.getTracks().forEach((track) => {
-    peer_connection.addTrack(track, localStream);
+  outgoingStream.getTracks().forEach((track) => {
+    peer_connection.addTrack(track, outgoingStream);
   });
 
   // Pull tracks from remote stream, add to video stream
   peer_connection.ontrack = (event) => {
     event.streams[0].getTracks().forEach((track) => {
-      remoteStream.addTrack(track);
+      incomingStream.addTrack(track);
     });
   };
 
-  webcamVideo.srcObject = localStream;
-  remoteVideo.srcObject = remoteStream;
+  webcamVideo.srcObject = outgoingStream;
+  remoteVideo.srcObject = incomingStream;
 
   callButton.disabled = false;
   answerButton.disabled = false;
   webcamButton.disabled = true;
 };
 
-// 2. Create an offer
+//  Creatingan offer
 callButton.onclick = async () => {
   // Reference Firestore collections for signaling
   const callDoc = firestore.collection('calls').doc();
@@ -105,10 +106,10 @@ callButton.onclick = async () => {
     });
   });
 
-  hangupButton.disabled = false;
+  hangup.disabled = false;
 };
 
-// 3. Answer the call with the unique ID
+//  Answer the call with the unique ID
 answerButton.onclick = async () => {
   const callId = callInput.value;
   const callDoc = firestore.collection('calls').doc(callId);
